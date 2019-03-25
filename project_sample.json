@@ -291,6 +291,15 @@
                                                             "access": 3
                                                         },
                                                         {
+                                                            "name": "display",
+                                                            "label": "Display field",
+                                                            "description": "This field will be used to label the entity",
+                                                            "order": 9,
+                                                            "value": "true",
+                                                            "type": "boolean",
+                                                            "access": 3
+                                                        },
+                                                        {
                                                             "name": "id",
                                                             "label": "Id field",
                                                             "description": "Is this field the unique id?",
@@ -609,6 +618,15 @@
                                                             "description": "Is this field optional?",
                                                             "order": 8,
                                                             "value": "false",
+                                                            "type": "boolean",
+                                                            "access": 3
+                                                        },
+                                                        {
+                                                            "name": "display",
+                                                            "label": "Display field",
+                                                            "description": "This field will be used to label the entity",
+                                                            "order": 9,
+                                                            "value": "true",
                                                             "type": "boolean",
                                                             "access": 3
                                                         },

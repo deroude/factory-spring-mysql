@@ -1,5 +1,7 @@
 package {{ group }}.{{ artifact }}.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import {{ group }}.{{ artifact }}.domain.{{ entity.name }};
@@ -8,4 +10,9 @@ import java.util.Optional;
 @Repository
 public interface {{ entity.name }}Repository extends JpaRepository<{{ entity.name }},Long>{
     Optional<{{entity.name}}> findByUsername(final String username);
+{% for field in fields %}
+    {%- if field.attributes|selectattr("name","equalto","display")|selectattr("value","equalto","true")|list|length >0 %}
+    Page<{{ entity.name }}> findBy{{ field.name|capitalize }}Like(String search, Pageable page);
+    {% endif %}
+{% endfor %}
 }
