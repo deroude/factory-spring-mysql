@@ -26,7 +26,7 @@ public class {{ entity.name }}Controller {
     @GetMapping
     public Page<{{ entity.name }}> get{{ entity.name }}List (@RequestParam(value = "search", required = false) final String search, final Pageable pageSpecification) {
         {% for field in fields if field.attributes|selectattr("name","equalto","display")|selectattr("value","equalto","true")|list|length >0 %}
-        return this.{{ entity.name|lower }}Repository.findBy{{ field.name|capitalize }}Like(search, pageSpecification);
+        return this.{{ entity.name|lower }}Repository.findBy{{ field.name|capitalize }}Like("%"+(search==null?"":search)+"%", pageSpecification);
         {% else %}
         return this.{{ entity.name|lower }}Repository.findAll(pageSpecification);
         {%- endfor %}
