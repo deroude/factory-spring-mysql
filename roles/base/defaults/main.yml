@@ -1,1 +1,2 @@
-basePackage: /target/src/main/java/{{ group| regex_replace('\.','/')}}/{{artifact}}
+targetDir: /target
+basePackage: "{{ targetDir }}/src/main/java/{{ group| regex_replace('\.','/')}}/{{artifact}}"
