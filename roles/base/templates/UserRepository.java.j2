@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface {{ entity.name }}Repository extends JpaRepository<{{ entity.name }},Long>{
     Optional<{{entity.name}}> findByUsername(final String username);
 {% for field in fields %}
-    {%- if field.attributes|selectattr("name","equalto","display")|selectattr("value","equalto","true")|list|length >0 %}
+    {%- if field.attributes|selectattr("name","equalto","display")|selectattr("value","equalto",true)|list|length >0 %}
     Page<{{ entity.name }}> findBy{{ field.name|capitalize }}Like(String search, Pageable page);
     {% endif %}
 {% endfor %}

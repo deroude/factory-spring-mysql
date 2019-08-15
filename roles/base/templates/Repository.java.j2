@@ -9,7 +9,7 @@ import {{ group }}.{{ artifact }}.domain.{{ entity.name }};
 @Repository
 public interface {{ entity.name }}Repository extends JpaRepository<{{ entity.name }},Long>{
 {% for field in fields %}
-    {%- if field.attributes|selectattr("name","equalto","display")|selectattr("value","equalto","true")|list|length >0 %}
+    {%- if field.attributes|selectattr("name","equalto","display")|selectattr("value","equalto",true)|list|length >0 %}
     Page<{{ entity.name }}> findBy{{ field.name|capitalize }}Like(String search, Pageable page);
     {% endif %}
 {% endfor %}

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-{% if fields|sum(attribute="attributes", start=[])|selectattr("name","equalto","enum")|selectattr("value","equalto","true")|list|length > 0 %}
+{% if fields|sum(attribute="attributes", start=[])|selectattr("name","equalto","enum")|selectattr("value","equalto",true)|list|length > 0 %}
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 {% endif %}
@@ -30,9 +30,9 @@ import java.util.Arrays;
 public class {{ entity.name }} {
 
 {% for field in fields %}
-{% if field.attributes|selectattr("name","equalto","id")|selectattr("value","equalto","true")|list|length > 0 %}
+{% if field.attributes|selectattr("name","equalto","id")|selectattr("value","equalto",true)|list|length > 0 %}
     @Id
-{% if field.attributes|selectattr("name","equalto","generated")|selectattr("value","equalto","true")|list|length > 0 %}
+{% if field.attributes|selectattr("name","equalto","generated")|selectattr("value","equalto",true)|list|length > 0 %}
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 {% endif %}
     private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
@@ -44,7 +44,7 @@ public class {{ entity.name }} {
     @Basic(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
     @Enumerated(EnumType.STRING)
     private {{ field.name|capitalize }}Values {{ field.name }};
-{% elif field.attributes|selectattr("name","equalto","basic")|selectattr("value","equalto","true")|list|length > 0 %}
+{% elif field.attributes|selectattr("name","equalto","basic")|selectattr("value","equalto",true)|list|length > 0 %}
     @Basic(optional={{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
 {% if field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0%}
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -63,7 +63,7 @@ public class {{ entity.name }} {
 {% endfor %}
 
 {% for field in fields %}
-{% if field.attributes|selectattr("name","equalto","enum")|selectattr("value","equalto","true")|list|length > 0 %}
+{% if field.attributes|selectattr("name","equalto","enum")|selectattr("value","equalto",true)|list|length > 0 %}
     public {{ field.name|capitalize }}Values get{{ field.name|capitalize }}(){
         return this.{{ field.name }};
     }
