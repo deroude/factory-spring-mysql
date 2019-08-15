@@ -15,7 +15,7 @@ DOUBLE
 {%- else %}
  VARCHAR(255) 
 {%- endif -%}
-{%- if field.attributes|selectattr("name","equalto","optional")|selectattr("value","equalto","false")|list|length > 0 %}
+{%- if field.attributes|selectattr("name","equalto","optional")|selectattr("value","equalto",false)|list|length > 0 %}
  NOT NULL 
 {%- else %}
  NULL 
