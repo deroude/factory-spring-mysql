@@ -17,11 +17,22 @@ import {{ group }}.{{ artifact }}.repository.{{ entity.name }}Repository;
 public class {{ entity.name }}Controller {
 
     private final {{ entity.name }}Repository {{entity.name|lower}}Repository;
+    {% if entity.category == 'AUTHENTICATION_ENTITY' %}
+    private final BCryptPasswordEncoder passwordEncoder;
+    {% endif %}
 
+    {% if entity.category == 'AUTHENTICATION_ENTITY' %}
+    @Autowired
+    public {{ entity.name }}Controller(final {{ entity.name }}Repository {{entity.name|lower}}Repository, BCryptPasswordEncoder passwordEncoder){
+        this.{{entity.name|lower}}Repository = {{entity.name|lower}}Repository;
+        this.passwordEncoder = passwordEncoder;
+    }
+    {% else %}
     @Autowired
     public {{ entity.name }}Controller(final {{ entity.name }}Repository {{entity.name|lower}}Repository){
         this.{{entity.name|lower}}Repository = {{entity.name|lower}}Repository;
     }
+    {% endif %}
 
     @GetMapping
     public Page<{{ entity.name }}> get{{ entity.name }}List (@RequestParam(value = "search", required = false) final String search, final Pageable pageSpecification) {
@@ -42,6 +53,9 @@ public class {{ entity.name }}Controller {
 
     @PostMapping
     public {{ entity.name }} new{{ entity.name }} (@RequestBody final {{ entity.name }} {{ entity.name|lower}}) {
+        {% if entity.category == 'AUTHENTICATION_ENTITY' %}
+        {{ entity.name|lower}}.setPassword(this.passwordEncoder.encode({{ entity.name|lower}}.getPassword()));
+        {% endif %}
         return this.{{ entity.name|lower }}Repository.saveAndFlush({{ entity.name|lower}});
     }
 
