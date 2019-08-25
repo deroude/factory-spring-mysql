@@ -6,6 +6,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+{% if entity.category == 'AUTHENTICATION_ENTITY' %}
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+{% endif %}
 
 import java.util.Optional;
 
